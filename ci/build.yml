@@ -1,0 +1,13 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: Docker@2
+    displayName: Build image
+    inputs:
+      repository: sam
+      command: build
+      Dockerfile: src/Dockerfile
