@@ -20,6 +20,6 @@ apt install -y powershell
 curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
 apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 apt update
-aptinstall -y terraform
+apt install -y terraform
 
 # Install terragrunt
