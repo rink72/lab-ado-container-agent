@@ -4,10 +4,24 @@ trigger:
 pool:
   vmImage: ubuntu-18.04
 
+variables:
+  trivyVersion: 0.9.1
+  tag: lab-ado-container-agent-$(Build.BuildNumber)
+  imageName: "rink72/lab-ado-container-agent"
+
 steps:
+  - script: |
+      sudo apt-get install rpm
+      wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
+      sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
+      trivy -v
+    displayName: Download and install Trivy
+
   - task: Docker@2
     displayName: Build image
     inputs:
-      repository: sam
+      repository: $(imageName)
       command: build
-      Dockerfile: src/Dockerfile
+      Dockerfile: "**/Dockerfile"
+      buildContext: $(Build.SourcesDirectory)/src/
+      tags: $(tag)
