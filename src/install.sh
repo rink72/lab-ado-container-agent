@@ -2,6 +2,7 @@
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 alias aptget='apt-get -y -qq -o Dpkg::Use-Pty=0'
 export DEBIAN_FRONTEND=noninteractive
+LOCAL_USER=labuser
 
 # Versions
 GOOGLE_CLOUD_SDK_VERSION=371.0.0-0
@@ -35,3 +36,7 @@ aptget install terraform=$TERRAFORM_VERSION
 # Install terragrunt
 wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.1/terragrunt_darwin_amd64 -O /usr/local/bin/terragrunt
 chmod 0755 /usr/local/bin/terragrunt
+
+# Configure local user
+groupadd -r $LOCAL_USER
+useradd --no-log-init -r -g $LOCAL_USER $LOCAL_USER
