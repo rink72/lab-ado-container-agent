@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-18.04
 
 variables:
-  trivyVersion: 0.9.1
+  trivyVersion: 0.23.0
   tag: $(Build.BuildNumber)
   imageName: "rink72/lab-ado-container-agent"
 
@@ -17,6 +17,12 @@ steps:
       trivy -v
     displayName: Download and install trivy
 
+  - task: CmdLine@2
+    displayName: Run trivy configuration scan
+    inputs:
+      script: |
+        trivy conf --exit-code 1 $(Build.SourcesDirectory)/src/
+
   - task: Docker@2
     displayName: Build image
     inputs:
@@ -27,7 +33,7 @@ steps:
       tags: $(tag)
 
   - task: CmdLine@2
-    displayName: "Run trivy scan"
+    displayName: Run trivy image scan
     inputs:
       script: |
         trivy image --exit-code 0 --severity LOW,MEDIUM $(imageName):$(tag)
