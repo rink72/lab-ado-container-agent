@@ -1,6 +1,7 @@
 # General configuration
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 alias aptget='apt-get -y -qq -o Dpkg::Use-Pty=0'
+export DEBIAN_FRONTEND=noninteractive
 
 # Versions
 GOOGLE_CLOUD_SDK_VERSION=371.0.0-0
