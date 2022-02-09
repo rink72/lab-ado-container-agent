@@ -32,4 +32,5 @@ aptget update
 aptget install terraform=$TERRAFORM_VERSION
 
 # Install terragrunt
-wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.1/terragrunt_darwin_amd64
+wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.1/terragrunt_darwin_amd64 -O /usr/local/bin/terragrunt
+chmod 0755 /usr/local/bin/terragrunt
