@@ -8,6 +8,7 @@ LOCAL_USER=labuser
 GOOGLE_CLOUD_SDK_VERSION=371.0.0-0
 PWSH_VERSION=7.2.1-1.deb
 TERRAFORM_VERSION=1.1.5
+TERRAGRUNT_VERSION=v0.36.1
 
 # Update apt
 aptget update
@@ -34,7 +35,7 @@ aptget update
 aptget install terraform=$TERRAFORM_VERSION
 
 # Install terragrunt
-wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.1/terragrunt_darwin_amd64 -O /usr/local/bin/terragrunt
+wget -q https://github.com/gruntwork-io/terragrunt/releases/download/$TERRAGRUNT_VERSION/terragrunt_linux_amd64 -O /usr/local/bin/terragrunt
 chmod 0755 /usr/local/bin/terragrunt
 
 # Configure local user
