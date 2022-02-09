@@ -8,6 +8,7 @@ variables:
   trivyVersion: 0.23.0
   tag: $(Build.BuildNumber)
   imageName: "rink72/lab-ado-container-agent"
+  registryServiceConnection: dockerhub-rink72
 
 steps:
   - script: |
@@ -38,3 +39,13 @@ steps:
       script: |
         trivy image --exit-code 0 --severity LOW,MEDIUM $(imageName):$(tag)
         trivy image --exit-code 1 --severity HIGH,CRITICAL $(imageName):$(tag)
+
+  #- ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+
+  - task: Docker@2
+    displayName: Push image
+    inputs:
+      containerRegistry: $(registryServiceConnection)
+      repository: $(imageName)
+      command: push
+      tags: $(tag)
