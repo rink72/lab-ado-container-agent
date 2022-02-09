@@ -5,6 +5,8 @@ USER root
 COPY install.sh /tmp/install.sh
 RUN sh -c /tmp/install.sh
 
+USER labuser
+
 # Run some rough tests
 COPY tests.sh /tmp/tests.sh
 RUN sh -c /tmp/tests.sh
