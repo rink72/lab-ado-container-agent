@@ -6,7 +6,7 @@ pool:
 
 variables:
   trivyVersion: 0.9.1
-  tag: lab-ado-container-agent-$(Build.BuildNumber)
+  tag: $(Build.BuildNumber)
   imageName: "rink72/lab-ado-container-agent"
 
 steps:
