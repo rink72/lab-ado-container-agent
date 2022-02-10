@@ -42,6 +42,6 @@ steps:
           containerRegistry: ${{ parameters.registryServiceConnection }}
           repository: ${{ parameters.imageName }}
           command: push
-          tags:
-            - ${{ parameters.tag }}
-            - latest
+          tags: |
+            ${{ parameters.tag }}
+            latest
