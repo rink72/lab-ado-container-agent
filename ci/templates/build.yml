@@ -1,0 +1,49 @@
+parameters:
+  publish: false
+  trivyVersion: ""
+  imageName: ""
+  registryServiceConnection: ""
+  tag: ""
+
+steps:
+  - script: |
+      sudo apt-get install rpm
+      wget https://github.com/aquasecurity/trivy/releases/download/v${{ parameters.trivyVersion }}/trivy_${{ parameters.trivyVersion }}_Linux-64bit.deb
+      sudo dpkg -i trivy_${{ parameters.trivyVersion }}_Linux-64bit.deb
+      trivy -v
+    displayName: Download and install trivy
+
+  - task: CmdLine@2
+    displayName: Run trivy configuration scan
+    inputs:
+      script: |
+        trivy conf --exit-code 1 $(Build.SourcesDirectory)/src/
+
+  - task: Docker@2
+    displayName: Build image
+    inputs:
+      repository: ${{ parameters.imageName }}
+      command: build
+      Dockerfile: "**/Dockerfile"
+      buildContext: $(Build.SourcesDirectory)/src/
+      tags: |
+        ${{ parameters.tag }}
+        latest
+
+  - task: CmdLine@2
+    displayName: Run trivy image scan
+    inputs:
+      script: |
+        trivy image --ignorefile $(Build.SourcesDirectory)/config/.trivyignore --exit-code 0 --severity LOW,MEDIUM ${{ parameters.imageName }}:${{ parameters.tag }}
+        trivy image --ignorefile $(Build.SourcesDirectory)/config/.trivyignore --exit-code 1 --severity HIGH,CRITICAL ${{ parameters.imageName }}:${{ parameters.tag }}
+
+  - ${{ if eq(parameters.publish, true) }}:
+      - task: Docker@2
+        displayName: Push image
+        inputs:
+          containerRegistry: ${{ parameters.registryServiceConnection }}
+          repository: ${{ parameters.imageName }}
+          command: push
+          tags: |
+            ${{ parameters.tag }}
+            latest

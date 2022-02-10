@@ -1,0 +1,22 @@
+pr:
+  - main
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-18.04
+
+variables:
+  trivyVersion: 0.23.0
+  tag: $(Build.BuildNumber)
+  imageName: "rink72/lab-ado-container-agent"
+  registryServiceConnection: dockerhub-rink72
+
+steps:
+  - template: templates/build.yml
+    parameters:
+      publish: false
+      trivyVersion: ${{ variables.trivyVersion }}
+      imageName: ${{ variables.imageName }}
+      registryServiceConnection: ${{ variables.registryServiceConnection }}
+      tag: ${{ variables.tag }}
