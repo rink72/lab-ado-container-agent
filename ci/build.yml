@@ -37,8 +37,8 @@ steps:
     displayName: Run trivy image scan
     inputs:
       script: |
-        trivy image --exit-code 0 --severity LOW,MEDIUM $(imageName):$(tag)
-        trivy image --exit-code 1 --severity HIGH,CRITICAL $(imageName):$(tag)
+        trivy image --ignorefile $(Build.SourcesDirectory)/config/.trivyignore --exit-code 0 --severity LOW,MEDIUM $(imageName):$(tag)
+        trivy image --ignorefile $(Build.SourcesDirectory)/config/.trivyignore --exit-code 1 --severity HIGH,CRITICAL $(imageName):$(tag)
 
   #- ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
 
