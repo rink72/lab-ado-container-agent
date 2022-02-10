@@ -48,4 +48,4 @@ steps:
       containerRegistry: $(registryServiceConnection)
       repository: $(imageName)
       command: push
-      tags: $(tag)
+      tags: $(tag), latest
