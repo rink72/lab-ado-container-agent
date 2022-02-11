@@ -17,7 +17,7 @@ steps:
     displayName: Run trivy configuration scan
     inputs:
       script: |
-        trivy conf --exit-code 1 $(Build.SourcesDirectory)/src/
+        trivy conf --ignorefile $(Build.SourcesDirectory)/config/.trivyignore --exit-code 1 $(Build.SourcesDirectory)/src/
 
   - task: Docker@2
     displayName: Build image
