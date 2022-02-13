@@ -28,6 +28,9 @@ dpkg -i packages-microsoft-prod.deb
 aptget update
 aptget install powershell=$PWSH_VERSION
 
+# Install Powershell required modules
+pwsh -C "Install-Module GoogleCloud -Force"
+
 # Install terraform
 curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
 apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
