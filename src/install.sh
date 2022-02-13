@@ -28,6 +28,9 @@ dpkg -i packages-microsoft-prod.deb
 aptget update
 aptget install powershell=$PWSH_VERSION
 
+# Install Powershell required modules
+pwsh -C "Install-Module GoogleCloud -Force -Scope AllUsers -Verbose"
+
 # Install terraform
 curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
 apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
@@ -37,7 +40,3 @@ aptget install terraform=$TERRAFORM_VERSION
 # Install terragrunt
 wget -q https://github.com/gruntwork-io/terragrunt/releases/download/$TERRAGRUNT_VERSION/terragrunt_linux_amd64 -O /usr/local/bin/terragrunt
 chmod 0755 /usr/local/bin/terragrunt
-
-# Configure local user
-groupadd -r $LOCAL_USER
-useradd --no-log-init -r -g $LOCAL_USER $LOCAL_USER
