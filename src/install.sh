@@ -29,7 +29,7 @@ aptget update
 aptget install powershell=$PWSH_VERSION
 
 # Install Powershell required modules
-pwsh -C "Install-Module GoogleCloud -Force"
+pwsh -C "Install-Module GoogleCloud -Force -Scope AllUsers -Verbose"
 
 # Install terraform
 curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
