@@ -5,10 +5,11 @@ export DEBIAN_FRONTEND=noninteractive
 LOCAL_USER=labuser
 
 # Versions
-GOOGLE_CLOUD_SDK_VERSION=372.0.0-0
+GOOGLE_CLOUD_SDK_VERSION=373.0.0-0
 PWSH_VERSION=7.2.1-1.deb
 TERRAFORM_VERSION=1.1.5
 TERRAGRUNT_VERSION=v0.36.1
+ANSIBLE_VERSION=5.3.0-1ppa~focal
 
 # Update apt
 aptget update
@@ -40,3 +41,7 @@ aptget install terraform=$TERRAFORM_VERSION
 # Install terragrunt
 wget -q https://github.com/gruntwork-io/terragrunt/releases/download/$TERRAGRUNT_VERSION/terragrunt_linux_amd64 -O /usr/local/bin/terragrunt
 chmod 0755 /usr/local/bin/terragrunt
+
+# Install ansible
+add-apt-repository --yes --update ppa:ansible/ansible
+aptget install ansible=$ANSIBLE_VERSION
