@@ -45,3 +45,4 @@ chmod 0755 /usr/local/bin/terragrunt
 # Install ansible
 add-apt-repository --yes --update ppa:ansible/ansible
 aptget install ansible=$ANSIBLE_VERSION
+pip install google-auth
