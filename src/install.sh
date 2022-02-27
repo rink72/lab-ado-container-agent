@@ -7,15 +7,15 @@ LOCAL_USER=labuser
 # Versions
 GOOGLE_CLOUD_SDK_VERSION=373.0.0-0
 PWSH_VERSION=7.2.1-1.deb
-TERRAFORM_VERSION=1.1.5
+TERRAFORM_VERSION=1.1.6
 TERRAGRUNT_VERSION=v0.36.1
-ANSIBLE_VERSION=5.3.0-1ppa~focal
+ANSIBLE_VERSION=5.4.0-1ppa~focal
 
 # Update apt
 aptget update
 
 # Install base requirements
-aptget install curl apt-transport-https ca-certificates gnupg wget software-properties-common apt-utils
+aptget install curl apt-transport-https ca-certificates gnupg wget software-properties-common apt-utils python3-pip
 
 # Install gcloud sdk
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -45,3 +45,4 @@ chmod 0755 /usr/local/bin/terragrunt
 # Install ansible
 add-apt-repository --yes --update ppa:ansible/ansible
 aptget install ansible=$ANSIBLE_VERSION
+pip install google-auth
