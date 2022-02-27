@@ -15,7 +15,7 @@ ANSIBLE_VERSION=5.4.0-1ppa~focal
 aptget update
 
 # Install base requirements
-aptget install curl apt-transport-https ca-certificates gnupg wget software-properties-common apt-utils
+aptget install curl apt-transport-https ca-certificates gnupg wget software-properties-common apt-utils python3-pip
 
 # Install gcloud sdk
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
